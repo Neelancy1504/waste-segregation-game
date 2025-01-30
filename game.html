@@ -1,475 +1,538 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap"
+      rel="stylesheet"
+    />
+    <title>Waste Segregation Game</title>
+    <style>
+      body {
+        font-family: "Outfit", sans-serif;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet" />
-  <title>Waste Segregation Game</title>
-  <style>
-    body {
-      font-family: 'Outfit', sans-serif;
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-    }
+      .game-container {
+        text-align: center;
+        background-color: linear-gradient(
+          to bottom right,
+          white,
+          rgb(211, 247, 230)
+        );
+        padding: 30px;
+        min-height: 100vh;
+        width: 100%;
+        margin: 0;
+        max-width: none;
+        border-radius: 0;
+        box-sizing: border-box;
+        overflow-y: auto;
+      }
 
-    .game-container {
-      text-align: center;
-      background-color: linear-gradient(to bottom right, white, rgb(211, 247, 230));
-      padding: 30px;
-      min-height: 100vh;
-      width: 100%;
-      margin: 0;
-      max-width: none;
-      border-radius: 0;
-      box-sizing: border-box;
-      overflow-y: auto;
-    }
+      h1 {
+        color: rgb(3, 126, 17);
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-family: "Luckiest Guy", serif;
+        font-weight: lighter;
+      }
 
-    h1 {
-      color: rgb(3, 126, 17);
-      font-size: 3.5rem;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-family: "Luckiest Guy", serif;
-      font-weight: lighter;
-    }
+      .game-description {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 15px;
+        margin: 20px auto;
+        max-width: 800px;
+        text-align: left;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
 
-    .game-description {
-      background: #f8f9fa;
-      padding: 20px;
-      border-radius: 15px;
-      margin: 20px auto;
-      max-width: 800px;
-      text-align: left;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+      .game-description h2 {
+        color: rgb(3, 126, 17);
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+      }
 
-    .game-description h2 {
-      color: rgb(3, 126, 17);
-      font-size: 1.8rem;
-      margin-bottom: 10px;
-    }
+      .game-description p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #333;
+      }
 
-    .game-description p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      color: #333;
-    }
+      .game-description ul {
+        list-style-type: disc;
+        padding-left: 20px;
+        margin-top: 10px;
+      }
 
-    .game-description ul {
-      list-style-type: disc;
-      padding-left: 20px;
-      margin-top: 10px;
-    }
+      .game-description ul li {
+        margin-bottom: 10px;
+      }
 
-    .game-description ul li {
-      margin-bottom: 10px;
-    }
+      .score {
+        font-size: 1.4em;
+        margin-bottom: 20px;
+        padding: 10px;
+        background: rgb(3, 126, 17);
+        color: white;
+        border-radius: 10px;
+        display: inline-block;
+      }
 
-    .score {
-      font-size: 1.4em;
-      margin-bottom: 20px;
-      padding: 10px;
-      background: rgb(3, 126, 17);
-      color: white;
-      border-radius: 10px;
-      display: inline-block;
-    }
+      .info-section {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 15px;
+        margin: 20px 0;
+        text-align: left;
+      }
 
-    .info-section {
-      background: #f8f9fa;
-      padding: 20px;
-      border-radius: 15px;
-      margin: 20px 0;
-      text-align: left;
-    }
+      .bin-guide {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
 
-    .bin-guide {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
-    }
+      .bin-info {
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
 
-    .bin-info {
-      background: white;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+      .bin-info h3 {
+        color: #032445;
+        margin-top: 0;
+      }
 
-    .bin-info h3 {
-      color: #032445;
-      margin-top: 0;
-    }
+      .bin-info ul {
+        list-style-type: none;
+        padding: 0;
+      }
 
-    .bin-info ul {
-      list-style-type: none;
-      padding: 0;
-    }
+      .bin-info li {
+        padding: 5px 0;
+        color: #666;
+      }
 
-    .bin-info li {
-      padding: 5px 0;
-      color: #666;
-    }
-
-    /* .bins {
+      /* .bins {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
       gap: 15px;
       margin: 30px 0;
     } */
-    .bins {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Reduced from 130px */
-  gap: 30px; /* Reduced from 15px */
-  margin: 30px auto; /* Changed from '30px 0' to '30px auto' to center horizontally */
-  max-width: 1200px; /* Add a max-width to prevent stretching too wide */
-  padding: 0 20px; /* Add padding for better spacing on smaller screens */
-}
+      .bins {
+        display: grid;
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax(100px, 1fr)
+        ); /* Reduced from 130px */
+        gap: 30px; /* Reduced from 15px */
+        margin: 30px auto; /* Changed from '30px 0' to '30px auto' to center horizontally */
+        max-width: 1200px; /* Add a max-width to prevent stretching too wide */
+        padding: 0 20px; /* Add padding for better spacing on smaller screens */
+      }
 
-    .bin {
-      background: white;
-      border: 3px solid #333;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 15px;
-      transition: all 0.3s ease;
-      padding: 10px;
-      overflow: hidden;
-      width: fit-content;
-      height: fit-content;
-    }
+      .bin {
+        background: white;
+        border: 3px solid #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 15px;
+        transition: all 0.3s ease;
+        padding: 10px;
+        overflow: hidden;
+        width: fit-content;
+        height: fit-content;
+      }
 
-    .bin img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 10px;
-    }
+      .bin img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 10px;
+      }
 
-    .bin:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
+      .bin:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
 
-    #plastic-bin {
-      border-color: #2196F3;
-    }
+      #plastic-bin {
+        border-color: #2196f3;
+      }
 
-    #compost-bin {
-      border-color: #4CAF50;
-    }
+      #compost-bin {
+        border-color: #4caf50;
+      }
 
-    #glass-bin {
-      border-color: #9C27B0;
-    }
+      #glass-bin {
+        border-color: #9c27b0;
+      }
 
-    #paper-bin {
-      border-color: #FF9800;
-    }
+      #paper-bin {
+        border-color: #ff9800;
+      }
 
-    #metal-bin {
-      border-color: #607D8B;
-    }
+      #metal-bin {
+        border-color: #607d8b;
+      }
 
-    #electronic-bin {
-      border-color: #E91E63;
-    }
+      #electronic-bin {
+        border-color: #e91e63;
+      }
 
-    #hazardous-bin {
-      border-color: #F44336;
-    }
+      #hazardous-bin {
+        border-color: #f44336;
+      }
 
-    .waste-items {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      margin: 30px 0;
-    }
+      .waste-items {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        margin: 30px 0;
+      }
 
-    .waste {
-      width: 100px;
-      height: 100px;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 15px;
-      cursor: grab;
-      font-weight: bold;
-      text-align: center;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      padding: 10px;
-    }
+      .waste {
+        width: 100px;
+        height: 100px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 15px;
+        cursor: grab;
+        font-weight: bold;
+        text-align: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+      }
 
-    .waste:hover {
-      transform: scale(1.05);
-    }
+      .waste:hover {
+        transform: scale(1.05);
+      }
 
-    #plastic-bottle {
-      background: #2196F3;
-    }
+      #plastic-bottle {
+        background: #2196f3;
+      }
 
-    #banana-peel {
-      background: #4CAF50;
-    }
+      #banana-peel {
+        background: #4caf50;
+      }
 
-    #glass-bottle {
-      background: #9C27B0;
-    }
+      #glass-bottle {
+        background: #9c27b0;
+      }
 
-    #paper {
-      background: #FF9800;
-    }
+      #paper {
+        background: #ff9800;
+      }
 
-    #battery {
-      background: #F44336;
-    }
+      #battery {
+        background: #f44336;
+      }
 
-    #phone {
-      background: #E91E63;
-    }
+      #phone {
+        background: #e91e63;
+      }
 
-    #tin-can {
-      background: #607D8B;
-    }
+      #tin-can {
+        background: #607d8b;
+      }
 
-    #feedback {
-      font-size: 1.3em;
-      padding: 15px;
-      border-radius: 10px;
-      margin: 20px auto;
-      max-width: 600px;
-      transition: all 0.3s ease;
-    }
+      #feedback {
+        font-size: 1.3em;
+        padding: 15px;
+        border-radius: 10px;
+        margin: 20px auto;
+        max-width: 600px;
+        transition: all 0.3s ease;
+      }
 
-    .explanation {
-      background: #f8f9fa;
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 10px;
-      font-size: 0.9em;
-      text-align: left;
-    }
+      .explanation {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 10px;
+        font-size: 0.9em;
+        text-align: left;
+      }
 
-    #tsparticles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1000;
-      pointer-events: none;
-    }
+      #tsparticles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        pointer-events: none;
+      }
 
-    .game-container {
-      position: relative;
-      z-index: 1;
-    }
-  </style>
-</head>
+      
+      .game-container {
+        position: relative;
+        z-index: 1;
+      }
+    </style>
+  </head>
 
-<body>
-  <div class="game-container">
-    <h1>Waste Segregation Game</h1>
+  <body>
+    <div class="game-container">
+      <h1>
+        Waste Segregation Game
+        <br />
+        <zerobin style="font-size: 35px">by ZeroBin</zerobin>
+      </h1>
 
-    <!-- Game Description and Rules Box -->
-    <div class="game-description">
-      <h2>Why This Game?</h2>
-      <p>
-        Waste segregation is a critical step in managing waste effectively and protecting our environment. 
-        By sorting waste into the correct categories, we can recycle materials, reduce landfill waste, and 
-        minimize environmental pollution. This game aims to educate and raise awareness about the importance 
-        of waste segregation in a fun and interactive way.
-      </p>
-      <h2>How to Play:</h2>
-      <ul>
-        <li><strong>Drag and Drop:</strong> Drag the waste items and drop them into the correct bins.</li>
-        <li><strong>Scoring:</strong> You earn 10 points for each correct drop and lose 5 points for each incorrect drop.</li>
-        <li><strong>Feedback:</strong> After each drop, you'll receive feedback explaining why the item belongs in a specific bin.</li>
-        <li><strong>Goal:</strong> Sort all the waste items correctly to complete the game and achieve the highest score!</li>
-      </ul>
+      <!-- Game Description and Rules Box -->
+      <div class="game-description">
+        <h2>Why This Game?</h2>
+        <p>
+          Waste segregation is a critical step in managing waste effectively and
+          protecting our environment. By sorting waste into the correct
+          categories, we can recycle materials, reduce landfill waste, and
+          minimize environmental pollution. This game aims to educate and raise
+          awareness about the importance of waste segregation in a fun and
+          interactive way.
+        </p>
+        <h2>How to Play:</h2>
+        <ul>
+          <li>
+            <strong>Drag and Drop:</strong> Drag the waste items and drop them
+            into the correct bins.
+          </li>
+          <li>
+            <strong>Scoring:</strong> You earn 10 points for each correct drop
+            and lose 5 points for each incorrect drop.
+          </li>
+          <li>
+            <strong>Feedback:</strong> After each drop, you'll receive feedback
+            explaining why the item belongs in a specific bin.
+          </li>
+          <li>
+            <strong>Goal:</strong> Sort all the waste items correctly to
+            complete the game and achieve the highest score!
+          </li>
+        </ul>
+      </div>
+
+      <div class="info-section">
+        <div class="bin-guide">
+          <div class="bin-info">
+            <h3>🔵 Plastic Bin</h3>
+            <ul>
+              <li>Plastic bottles</li>
+              <li>Food containers</li>
+              <li>Plastic bags</li>
+              <li>Packaging material</li>
+            </ul>
+          </div>
+          <div class="bin-info">
+            <h3>🟢 Compost Bin</h3>
+            <ul>
+              <li>Food scraps</li>
+              <li>Fruit and vegetable waste</li>
+              <li>Coffee grounds</li>
+              <li>Garden waste</li>
+            </ul>
+          </div>
+          <div class="bin-info">
+            <h3>🟣 Glass Bin</h3>
+            <ul>
+              <li>Glass bottles</li>
+              <li>Glass jars</li>
+              <li>Broken glassware</li>
+              <li>Glass containers</li>
+            </ul>
+          </div>
+          <div class="bin-info">
+            <h3>🟡 Paper Bin</h3>
+            <ul>
+              <li>Newspapers</li>
+              <li>Cardboard</li>
+              <li>Magazines</li>
+              <li>Paper packaging</li>
+            </ul>
+          </div>
+          <div class="bin-info">
+            <h3>⚫ Metal Bin</h3>
+            <ul>
+              <li>Tin cans</li>
+              <li>Aluminum cans</li>
+              <li>Metal containers</li>
+              <li>Foil wrapping</li>
+            </ul>
+          </div>
+          <div class="bin-info">
+            <h3>🔴 Electronic Waste</h3>
+            <ul>
+              <li>Old phones</li>
+              <li>Computers</li>
+              <li>Cables</li>
+              <li>Electronic devices</li>
+            </ul>
+          </div>
+          <div class="bin-info">
+            <h3>🟤 Hazardous Waste</h3>
+            <ul>
+              <li>Batteries</li>
+              <li>Paint</li>
+              <li>Chemicals</li>
+              <li>Medical waste</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div
+        style="
+          font-size: 35px;
+          color: rgb(3, 126, 17);
+          font-family: Luckiest Guy, serif;
+          font-weight: lighter;
+          padding-bottom: 20px;
+        "
+      >
+        Let's Play!
+      </div>
+      <div class="score">Score: <span id="score">0</span></div>
+
+      <div class="bins">
+        <div class="bin" id="plastic-bin">
+          <img src="assets/images/Plastic.png" alt="Plastic Bin" />
+        </div>
+        <div class="bin" id="compost-bin">
+          <img src="assets/images/Compost.png" alt="Compost Bin" />
+        </div>
+        <div class="bin" id="glass-bin">
+          <img src="assets/images/Glass.png" alt="Glass Bin" />
+        </div>
+        <div class="bin" id="paper-bin">
+          <img src="assets/images/Paper.png" alt="Paper Bin" />
+        </div>
+        <div class="bin" id="metal-bin">
+          <img src="assets/images/Metal.png" alt="Metal Bin" />
+        </div>
+        <div class="bin" id="electronic-bin">
+          <img src="assets/images/Electronics.png" alt="Electronic Bin" />
+        </div>
+        <div class="bin" id="hazardous-bin">
+          <img src="assets/images/Hazardous.png" alt="Hazardous Bin" />
+        </div>
+      </div>
+
+      <div class="waste-items">
+        <div class="waste" id="plastic-bottle" draggable="true">
+          Plastic Bottle
+        </div>
+        <div class="waste" id="banana-peel" draggable="true">Banana Peel</div>
+        <div class="waste" id="glass-bottle" draggable="true">Glass Bottle</div>
+        <div class="waste" id="paper" draggable="true">Paper</div>
+        <div class="waste" id="battery" draggable="true">Battery</div>
+        <div class="waste" id="phone" draggable="true">Old Phone</div>
+        <div class="waste" id="tin-can" draggable="true">Tin Can</div>
+      </div>
+
+      <div id="feedback"></div>
     </div>
 
-    <div class="score">Score: <span id="score">0</span></div>
+    <script>
+      let score = 0;
+      const scoreElement = document.getElementById("score");
+      const feedbackElement = document.getElementById("feedback");
 
-    <div class="info-section">
-      <div class="bin-guide">
-        <div class="bin-info">
-          <h3>🔵 Plastic Bin</h3>
-          <ul>
-            <li>Plastic bottles</li>
-            <li>Food containers</li>
-            <li>Plastic bags</li>
-            <li>Packaging material</li>
-          </ul>
-        </div>
-        <div class="bin-info">
-          <h3>🟢 Compost Bin</h3>
-          <ul>
-            <li>Food scraps</li>
-            <li>Fruit and vegetable waste</li>
-            <li>Coffee grounds</li>
-            <li>Garden waste</li>
-          </ul>
-        </div>
-        <div class="bin-info">
-          <h3>🟣 Glass Bin</h3>
-          <ul>
-            <li>Glass bottles</li>
-            <li>Glass jars</li>
-            <li>Broken glassware</li>
-            <li>Glass containers</li>
-          </ul>
-        </div>
-        <div class="bin-info">
-          <h3>🟡 Paper Bin</h3>
-          <ul>
-            <li>Newspapers</li>
-            <li>Cardboard</li>
-            <li>Magazines</li>
-            <li>Paper packaging</li>
-          </ul>
-        </div>
-        <div class="bin-info">
-          <h3>⚫ Metal Bin</h3>
-          <ul>
-            <li>Tin cans</li>
-            <li>Aluminum cans</li>
-            <li>Metal containers</li>
-            <li>Foil wrapping</li>
-          </ul>
-        </div>
-        <div class="bin-info">
-          <h3>🔴 Electronic Waste</h3>
-          <ul>
-            <li>Old phones</li>
-            <li>Computers</li>
-            <li>Cables</li>
-            <li>Electronic devices</li>
-          </ul>
-        </div>
-        <div class="bin-info">
-          <h3>🟤 Hazardous Waste</h3>
-          <ul>
-            <li>Batteries</li>
-            <li>Paint</li>
-            <li>Chemicals</li>
-            <li>Medical waste</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+      // Map waste items to correct bin image sources and bin names
+      const wasteToBin = {
+        "plastic-bottle": {
+          image: "assets/images/Plastic.png",
+          name: "Plastic Bin",
+        },
+        "banana-peel": {
+          image: "assets/images/Compost.png",
+          name: "Compost Bin",
+        },
+        "glass-bottle": { image: "assets/images/Glass.png", name: "Glass Bin" },
+        paper: { image: "assets/images/Paper.png", name: "Paper Bin" },
+        battery: {
+          image: "assets/images/Hazardous.png",
+          name: "Hazardous Bin",
+        },
+        phone: {
+          image: "assets/images/Electronics.png",
+          name: "Electronic Bin",
+        },
+        "tin-can": { image: "assets/images/Metal.png", name: "Metal Bin" },
+      };
 
-    <div class="bins">
-      <div class="bin" id="plastic-bin">
-        <img src="assets/images/Plastic.png" alt="Plastic Bin" />
-      </div>
-      <div class="bin" id="compost-bin">
-        <img src="assets/images/Compost.png" alt="Compost Bin" />
-      </div>
-      <div class="bin" id="glass-bin">
-        <img src="assets/images/Glass.png" alt="Glass Bin" />
-      </div>
-      <div class="bin" id="paper-bin">
-        <img src="assets/images/Paper.png" alt="Paper Bin" />
-      </div>
-      <div class="bin" id="metal-bin">
-        <img src="assets/images/Metal.png" alt="Metal Bin" />
-      </div>
-      <div class="bin" id="electronic-bin">
-        <img src="assets/images/Electronics.png" alt="Electronic Bin" />
-      </div>
-      <div class="bin" id="hazardous-bin">
-        <img src="assets/images/Hazardous.png" alt="Hazardous Bin" />
-      </div>
-    </div>
+      const wasteExplanations = {
+        "plastic-bottle":
+          "Plastic bottles go in the plastic bin for recycling into new plastic products.",
+        "banana-peel":
+          "Banana peels are organic waste that can be composted into nutrient-rich soil.",
+        "glass-bottle":
+          "Glass bottles can be recycled indefinitely without loss in quality.",
+        paper:
+          "Paper products can be recycled into new paper items, saving trees and energy.",
+        battery:
+          "Batteries contain harmful chemicals and must be disposed of as hazardous waste.",
+        phone:
+          "Electronic devices contain valuable materials that can be recovered and recycled.",
+        "tin-can":
+          "Metal items can be recycled multiple times without losing their properties.",
+      };
 
-    <div class="waste-items">
-      <div class="waste" id="plastic-bottle" draggable="true">Plastic Bottle</div>
-      <div class="waste" id="banana-peel" draggable="true">Banana Peel</div>
-      <div class="waste" id="glass-bottle" draggable="true">Glass Bottle</div>
-      <div class="waste" id="paper" draggable="true">Paper</div>
-      <div class="waste" id="battery" draggable="true">Battery</div>
-      <div class="waste" id="phone" draggable="true">Old Phone</div>
-      <div class="waste" id="tin-can" draggable="true">Tin Can</div>
-    </div>
+      document.querySelectorAll(".waste").forEach((waste) => {
+        waste.addEventListener("dragstart", (e) => {
+          e.dataTransfer.setData("text/plain", e.target.id);
+          e.target.style.opacity = "0.5";
+        });
 
-    <div id="feedback"></div>
-  </div>
-
-  <script>
-    let score = 0;
-    const scoreElement = document.getElementById("score");
-    const feedbackElement = document.getElementById("feedback");
-
-    // Map waste items to correct bin image sources and bin names
-    const wasteToBin = {
-      "plastic-bottle": { image: "assets/images/Plastic.png", name: "Plastic Bin" },
-      "banana-peel": { image: "assets/images/Compost.png", name: "Compost Bin" },
-      "glass-bottle": { image: "assets/images/Glass.png", name: "Glass Bin" },
-      "paper": { image: "assets/images/Paper.png", name: "Paper Bin" },
-      "battery": { image: "assets/images/Hazardous.png", name: "Hazardous Bin" },
-      "phone": { image: "assets/images/Electronics.png", name: "Electronic Bin" },
-      "tin-can": { image: "assets/images/Metal.png", name: "Metal Bin" }
-    };
-
-    const wasteExplanations = {
-      "plastic-bottle": "Plastic bottles go in the plastic bin for recycling into new plastic products.",
-      "banana-peel": "Banana peels are organic waste that can be composted into nutrient-rich soil.",
-      "glass-bottle": "Glass bottles can be recycled indefinitely without loss in quality.",
-      "paper": "Paper products can be recycled into new paper items, saving trees and energy.",
-      "battery": "Batteries contain harmful chemicals and must be disposed of as hazardous waste.",
-      "phone": "Electronic devices contain valuable materials that can be recovered and recycled.",
-      "tin-can": "Metal items can be recycled multiple times without losing their properties."
-    };
-
-    document.querySelectorAll(".waste").forEach((waste) => {
-      waste.addEventListener("dragstart", (e) => {
-        e.dataTransfer.setData("text/plain", e.target.id);
-        e.target.style.opacity = "0.5";
+        waste.addEventListener("dragend", (e) => {
+          e.target.style.opacity = "1";
+        });
       });
 
-      waste.addEventListener("dragend", (e) => {
-        e.target.style.opacity = "1";
-      });
-    });
+      document.querySelectorAll(".bin").forEach((bin) => {
+        bin.addEventListener("dragover", (e) => {
+          e.preventDefault();
+          bin.style.transform = "scale(1.05)";
+        });
 
-    document.querySelectorAll(".bin").forEach((bin) => {
-      bin.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        bin.style.transform = "scale(1.05)";
-      });
+        bin.addEventListener("dragleave", (e) => {
+          bin.style.transform = "none";
+        });
 
-      bin.addEventListener("dragleave", (e) => {
-        bin.style.transform = "none";
-      });
+        bin.addEventListener("drop", (e) => {
+          e.preventDefault();
+          bin.style.transform = "none";
 
-      bin.addEventListener("drop", (e) => {
-        e.preventDefault();
-        bin.style.transform = "none";
+          const wasteId = e.dataTransfer.getData("text/plain");
+          const waste = document.getElementById(wasteId);
+          const correctBin = wasteToBin[wasteId];
 
-        const wasteId = e.dataTransfer.getData("text/plain");
-        const waste = document.getElementById(wasteId);
-        const correctBin = wasteToBin[wasteId];
+          // Find the image inside the dropped bin
+          const binImage = bin.querySelector("img").getAttribute("src");
 
-        // Find the image inside the dropped bin
-        const binImage = bin.querySelector("img").getAttribute("src");
-
-        let feedbackHtml = '';
-        if (binImage === correctBin.image) {
-          score += 10;
-          feedbackHtml = `
+          let feedbackHtml = "";
+          if (binImage === correctBin.image) {
+            score += 10;
+            feedbackHtml = `
         <div style="background: #4CAF50; color: black; font-weight: 600; padding: 15px; border-radius: 10px;">
           Correct! +10 points
           <div class="explanation">
@@ -477,9 +540,9 @@
           </div>
         </div>
       `;
-        } else {
-          score -= 5;
-          feedbackHtml = `
+          } else {
+            score -= 5;
+            feedbackHtml = `
         <div style="background: #f44336; color: black; font-weight: 600; padding: 15px; border-radius: 10px;">
           Incorrect! -5 points
           <div class="explanation">
@@ -488,28 +551,28 @@
           </div>
         </div>
       `;
-        }
+          }
 
-        feedbackElement.innerHTML = feedbackHtml;
-        scoreElement.textContent = score;
-        waste.style.display = "none";
+          feedbackElement.innerHTML = feedbackHtml;
+          scoreElement.textContent = score;
+          waste.style.display = "none";
 
-        // Check if game is over
-        const remainingWaste = document.querySelectorAll('.waste[style="display: block"], .waste:not([style])');
-        if (remainingWaste.length === 0) {
-          setTimeout(() => {
-            alert(`Game Over! Final Score: ${score}`);
-            feedbackElement.innerHTML += `
+          // Check if game is over
+          const remainingWaste = document.querySelectorAll(
+            '.waste[style="display: block"], .waste:not([style])'
+          );
+          if (remainingWaste.length === 0) {
+            setTimeout(() => {
+              alert(`Game Over! Final Score: ${score}`);
+              feedbackElement.innerHTML += `
           <div style="background: #2196F3; color: white; padding: 15px; border-radius: 10px; margin-top: 15px;">
             Game Complete! Refresh the page to play again.
           </div>
         `;
-          }, 500);
-        }
+            }, 500);
+          }
+        });
       });
-    });
-  </script>
-
-</body>
-
+    </script>
+  </body>
 </html>
