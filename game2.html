@@ -18,9 +18,10 @@
     }
 
     .game-container {
-      position: relative;
-      z-index: 1;
       text-align: center;
+      background-color: linear-gradient(to bottom right,
+          white,
+          rgb(211, 247, 230));
       padding: 30px;
       min-height: 100vh;
       width: 100%;
@@ -29,16 +30,6 @@
       border-radius: 0;
       box-sizing: border-box;
       overflow-y: auto;
-      background: white;
-    }
-
-    .top-section {
-      background-image: url('assets/images/bg.png');
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center top;
-      padding: 20px;
-      margin: -30px -30px 0 -30px;
     }
 
     h1 {
@@ -52,22 +43,12 @@
     }
 
     .game-description {
-      background: rgba(248, 249, 250, 0.9);
+      background: #f8f9fa;
       padding: 20px;
       border-radius: 15px;
       margin: 20px auto;
       max-width: 800px;
       text-align: left;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .game-heading {
-      background: rgba(248, 249, 250, 0.9);
-      padding: 20px;
-      border-radius: 15px;
-      margin: 20px auto;
-      max-width: 800px;
-      text-align: center;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
@@ -119,38 +100,10 @@
     }
 
     .bin-info {
+      background: white;
       padding: 15px;
       border-radius: 10px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Specific background colors for each bin type */
-    .bin-info.plastic {
-      background: rgba(33, 150, 243, 0.1);
-    }
-
-    .bin-info.compost {
-      background: rgba(76, 175, 80, 0.1);
-    }
-
-    .bin-info.glass {
-      background: rgba(156, 39, 176, 0.1);
-    }
-
-    .bin-info.paper {
-      background: rgba(255, 152, 0, 0.1);
-    }
-
-    .bin-info.metal {
-      background: rgba(96, 125, 139, 0.1);
-    }
-
-    .bin-info.electronic {
-      background: rgba(233, 30, 99, 0.1);
-    }
-
-    .bin-info.hazardous {
-      background: rgba(244, 67, 54, 0.1);
     }
 
     .bin-info h3 {
@@ -168,13 +121,25 @@
       color: #666;
     }
 
+    /* .bins {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 15px;
+      margin: 30px 0;
+    } */
     .bins {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      grid-template-columns: repeat(auto-fit,
+          minmax(100px, 1fr));
+      /* Reduced from 130px */
       gap: 30px;
+      /* Reduced from 15px */
       margin: 30px auto;
-      max-width: 1300px;
+      /* Changed from '30px 0' to '30px auto' to center horizontally */
+      max-width: 1200px;
+      /* Add a max-width to prevent stretching too wide */
       padding: 0 20px;
+      /* Add padding for better spacing on smaller screens */
     }
 
     .bin {
@@ -240,8 +205,8 @@
     }
 
     .waste {
-      width: 120px;
-      height: 120px;
+      width: 100px;
+      height: 100px;
       color: white;
       display: flex;
       justify-content: center;
@@ -305,62 +270,67 @@
       text-align: left;
     }
 
-    .lets-play {
-      font-size: 38px;
-      color: rgb(3, 126, 17);
-      font-family: "Luckiest Guy", serif;
-      font-weight: lighter;
-      padding-bottom: 20px;
+    #tsparticles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+
+    .game-container {
+      position: relative;
+      z-index: 1;
     }
   </style>
 </head>
 
 <body>
   <div class="game-container">
-    <div class="top-section">
-      <h1 class="game-heading">
-        Waste Segregation Game
-        <br />
-        <zerobin style="font-size: 35px; text-align: center;">by ZeroBin</zerobin>
-      </h1>
+    <h1>
+      Waste Segregation Game
+      <br />
+      <zerobin style="font-size: 35px">by ZeroBin</zerobin>
+    </h1>
 
-      <div class="game-description">
-        <h2>Why This Game?</h2>
-        <p>
-          Waste segregation is a critical step in managing waste effectively and
-          protecting our environment. By sorting waste into the correct
-          categories, we can recycle materials, reduce landfill waste, and
-          minimize environmental pollution. This game aims to educate and raise
-          awareness about the importance of waste segregation in a fun and
-          interactive way.
-        </p>
-        <h2>How to Play:</h2>
-        <ul>
-          <li>
-            <strong>Drag and Drop:</strong> Drag the waste items and drop them
-            into the correct bins.
-          </li>
-          <li>
-            <strong>Scoring:</strong> You earn 10 points for each correct drop
-            and lose 5 points for each incorrect drop.
-          </li>
-          <li>
-            <strong>Feedback:</strong> After each drop, you'll receive feedback
-            explaining why the item belongs in a specific bin.
-          </li>
-          <li>
-            <strong>Goal:</strong> Sort all the waste items correctly to
-            complete the game and achieve the highest score!
-          </li>
-        </ul>
-      </div>
+    <!-- Game Description and Rules Box -->
+    <div class="game-description">
+      <h2>Why This Game?</h2>
+      <p>
+        Waste segregation is a critical step in managing waste effectively and
+        protecting our environment. By sorting waste into the correct
+        categories, we can recycle materials, reduce landfill waste, and
+        minimize environmental pollution. This game aims to educate and raise
+        awareness about the importance of waste segregation in a fun and
+        interactive way.
+      </p>
+      <h2>How to Play:</h2>
+      <ul>
+        <li>
+          <strong>Drag and Drop:</strong> Drag the waste items and drop them
+          into the correct bins.
+        </li>
+        <li>
+          <strong>Scoring:</strong> You earn 10 points for each correct drop
+          and lose 5 points for each incorrect drop.
+        </li>
+        <li>
+          <strong>Feedback:</strong> After each drop, you'll receive feedback
+          explaining why the item belongs in a specific bin.
+        </li>
+        <li>
+          <strong>Goal:</strong> Sort all the waste items correctly to
+          complete the game and achieve the highest score!
+        </li>
+      </ul>
     </div>
-    <div class="lets-play" style="margin-top: 30px; color: #032445;">Ready, Set, Sort!</div>
-    <div class="info-section">
 
+    <div class="info-section">
       <div class="bin-guide">
-        <!-- Bin info sections -->
-        <div class="bin-info plastic">
+        <div class="bin-info">
           <h3>🔵 Plastic Bin</h3>
           <ul>
             <li>Plastic bottles</li>
@@ -369,7 +339,7 @@
             <li>Packaging material</li>
           </ul>
         </div>
-        <div class="bin-info compost">
+        <div class="bin-info">
           <h3>🟢 Compost Bin</h3>
           <ul>
             <li>Food scraps</li>
@@ -378,7 +348,7 @@
             <li>Garden waste</li>
           </ul>
         </div>
-        <div class="bin-info glass">
+        <div class="bin-info">
           <h3>🟣 Glass Bin</h3>
           <ul>
             <li>Glass bottles</li>
@@ -387,7 +357,7 @@
             <li>Glass containers</li>
           </ul>
         </div>
-        <div class="bin-info paper">
+        <div class="bin-info">
           <h3>🟡 Paper Bin</h3>
           <ul>
             <li>Newspapers</li>
@@ -396,7 +366,7 @@
             <li>Paper packaging</li>
           </ul>
         </div>
-        <div class="bin-info metal">
+        <div class="bin-info">
           <h3>⚫ Metal Bin</h3>
           <ul>
             <li>Tin cans</li>
@@ -405,7 +375,7 @@
             <li>Foil wrapping</li>
           </ul>
         </div>
-        <div class="bin-info electronic">
+        <div class="bin-info">
           <h3>🔴 Electronic Waste</h3>
           <ul>
             <li>Old phones</li>
@@ -414,7 +384,7 @@
             <li>Electronic devices</li>
           </ul>
         </div>
-        <div class="bin-info hazardous">
+        <div class="bin-info">
           <h3>🟤 Hazardous Waste</h3>
           <ul>
             <li>Batteries</li>
@@ -426,7 +396,15 @@
       </div>
     </div>
 
-    <div class="lets-play">Let's Play!</div>
+    <div style="
+          font-size: 35px;
+          color: rgb(3, 126, 17);
+          font-family: Luckiest Guy, serif;
+          font-weight: lighter;
+          padding-bottom: 20px;
+        ">
+      Let's Play!
+    </div>
     <div class="score">Score: <span id="score">0</span></div>
 
     <div class="bins">
