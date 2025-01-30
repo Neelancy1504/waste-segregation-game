@@ -40,6 +40,38 @@
       font-weight: lighter;
     }
 
+    .game-description {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 15px;
+      margin: 20px auto;
+      max-width: 800px;
+      text-align: left;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .game-description h2 {
+      color: rgb(3, 126, 17);
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .game-description p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .game-description ul {
+      list-style-type: disc;
+      padding-left: 20px;
+      margin-top: 10px;
+    }
+
+    .game-description ul li {
+      margin-bottom: 10px;
+    }
+
     .score {
       font-size: 1.4em;
       margin-bottom: 20px;
@@ -94,11 +126,13 @@
       margin: 30px 0;
     } */
     .bins {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 15px;
-      margin: 30px 0;
-    }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Reduced from 130px */
+  gap: 30px; /* Reduced from 15px */
+  margin: 30px auto; /* Changed from '30px 0' to '30px auto' to center horizontally */
+  max-width: 1200px; /* Add a max-width to prevent stretching too wide */
+  padding: 0 20px; /* Add padding for better spacing on smaller screens */
+}
 
     .bin {
       background: white;
@@ -111,20 +145,14 @@
       padding: 10px;
       overflow: hidden;
       width: fit-content;
-      /* Adjust width to fit the image */
       height: fit-content;
-      /* Adjust height to fit the image */
     }
 
     .bin img {
       width: 100%;
-      /* Ensure the image fills the bin */
       height: 100%;
-      /* Ensure the image fills the bin */
       object-fit: contain;
-      /* Ensure the image scales proportionally */
       border-radius: 10px;
-      /* Optional: Add border radius to the image */
     }
 
     .bin:hover {
@@ -254,6 +282,25 @@
 <body>
   <div class="game-container">
     <h1>Waste Segregation Game</h1>
+
+    <!-- Game Description and Rules Box -->
+    <div class="game-description">
+      <h2>Why This Game?</h2>
+      <p>
+        Waste segregation is a critical step in managing waste effectively and protecting our environment. 
+        By sorting waste into the correct categories, we can recycle materials, reduce landfill waste, and 
+        minimize environmental pollution. This game aims to educate and raise awareness about the importance 
+        of waste segregation in a fun and interactive way.
+      </p>
+      <h2>How to Play:</h2>
+      <ul>
+        <li><strong>Drag and Drop:</strong> Drag the waste items and drop them into the correct bins.</li>
+        <li><strong>Scoring:</strong> You earn 10 points for each correct drop and lose 5 points for each incorrect drop.</li>
+        <li><strong>Feedback:</strong> After each drop, you'll receive feedback explaining why the item belongs in a specific bin.</li>
+        <li><strong>Goal:</strong> Sort all the waste items correctly to complete the game and achieve the highest score!</li>
+      </ul>
+    </div>
+
     <div class="score">Score: <span id="score">0</span></div>
 
     <div class="info-section">
