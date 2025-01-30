@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -23,12 +23,9 @@
       }
 
       .game-container {
+        position: relative;
+        z-index: 1;
         text-align: center;
-        background-color: linear-gradient(
-          to bottom right,
-          white,
-          rgb(211, 247, 230)
-        );
         padding: 30px;
         min-height: 100vh;
         width: 100%;
@@ -37,6 +34,16 @@
         border-radius: 0;
         box-sizing: border-box;
         overflow-y: auto;
+        background: white;
+      }
+
+      .top-section {
+        background-image: url('assets/images/bg.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center top;
+        padding: 20px;
+        margin: -30px -30px 0 -30px;
       }
 
       h1 {
@@ -50,12 +57,22 @@
       }
 
       .game-description {
-        background: #f8f9fa;
+        background: rgba(248, 249, 250, 0.9);
         padding: 20px;
         border-radius: 15px;
         margin: 20px auto;
         max-width: 800px;
         text-align: left;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .game-heading {
+        background: rgba(248, 249, 250, 0.9);
+        padding: 20px;
+        border-radius: 15px;
+        margin: 20px auto;
+        max-width: 800px;
+        text-align: center;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
 
@@ -128,22 +145,13 @@
         color: #666;
       }
 
-      /* .bins {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 15px;
-      margin: 30px 0;
-    } */
       .bins {
         display: grid;
-        grid-template-columns: repeat(
-          auto-fit,
-          minmax(100px, 1fr)
-        ); /* Reduced from 130px */
-        gap: 30px; /* Reduced from 15px */
-        margin: 30px auto; /* Changed from '30px 0' to '30px auto' to center horizontally */
-        max-width: 1200px; /* Add a max-width to prevent stretching too wide */
-        padding: 0 20px; /* Add padding for better spacing on smaller screens */
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 30px;
+        margin: 30px auto;
+        max-width: 1300px;
+        padding: 0 20px;
       }
 
       .bin {
@@ -172,33 +180,13 @@
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
       }
 
-      #plastic-bin {
-        border-color: #2196f3;
-      }
-
-      #compost-bin {
-        border-color: #4caf50;
-      }
-
-      #glass-bin {
-        border-color: #9c27b0;
-      }
-
-      #paper-bin {
-        border-color: #ff9800;
-      }
-
-      #metal-bin {
-        border-color: #607d8b;
-      }
-
-      #electronic-bin {
-        border-color: #e91e63;
-      }
-
-      #hazardous-bin {
-        border-color: #f44336;
-      }
+      #plastic-bin { border-color: #2196f3; }
+      #compost-bin { border-color: #4caf50; }
+      #glass-bin { border-color: #9c27b0; }
+      #paper-bin { border-color: #ff9800; }
+      #metal-bin { border-color: #607d8b; }
+      #electronic-bin { border-color: #e91e63; }
+      #hazardous-bin { border-color: #f44336; }
 
       .waste-items {
         display: flex;
@@ -209,8 +197,8 @@
       }
 
       .waste {
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
         color: white;
         display: flex;
         justify-content: center;
@@ -228,33 +216,13 @@
         transform: scale(1.05);
       }
 
-      #plastic-bottle {
-        background: #2196f3;
-      }
-
-      #banana-peel {
-        background: #4caf50;
-      }
-
-      #glass-bottle {
-        background: #9c27b0;
-      }
-
-      #paper {
-        background: #ff9800;
-      }
-
-      #battery {
-        background: #f44336;
-      }
-
-      #phone {
-        background: #e91e63;
-      }
-
-      #tin-can {
-        background: #607d8b;
-      }
+      #plastic-bottle { background: #2196f3; }
+      #banana-peel { background: #4caf50; }
+      #glass-bottle { background: #9c27b0; }
+      #paper { background: #ff9800; }
+      #battery { background: #f44336; }
+      #phone { background: #e91e63; }
+      #tin-can { background: #607d8b; }
 
       #feedback {
         font-size: 1.3em;
@@ -274,66 +242,60 @@
         text-align: left;
       }
 
-      #tsparticles {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1000;
-        pointer-events: none;
-      }
-
-      
-      .game-container {
-        position: relative;
-        z-index: 1;
+      .lets-play {
+        font-size: 38px;
+        color: rgb(3, 126, 17);
+        font-family: "Luckiest Guy", serif;
+        font-weight: lighter;
+        padding-bottom: 20px;
       }
     </style>
   </head>
 
   <body>
     <div class="game-container">
-      <h1>
-        Waste Segregation Game
-        <br />
-        <zerobin style="font-size: 35px">by ZeroBin</zerobin>
-      </h1>
+      <div class="top-section">
+        <h1 class="game-heading">
+          Waste Segregation Game
+          <br />
+          <zerobin style="font-size: 35px; text-align: center;">by ZeroBin</zerobin>
+        </h1>
 
-      <!-- Game Description and Rules Box -->
-      <div class="game-description">
-        <h2>Why This Game?</h2>
-        <p>
-          Waste segregation is a critical step in managing waste effectively and
-          protecting our environment. By sorting waste into the correct
-          categories, we can recycle materials, reduce landfill waste, and
-          minimize environmental pollution. This game aims to educate and raise
-          awareness about the importance of waste segregation in a fun and
-          interactive way.
-        </p>
-        <h2>How to Play:</h2>
-        <ul>
-          <li>
-            <strong>Drag and Drop:</strong> Drag the waste items and drop them
-            into the correct bins.
-          </li>
-          <li>
-            <strong>Scoring:</strong> You earn 10 points for each correct drop
-            and lose 5 points for each incorrect drop.
-          </li>
-          <li>
-            <strong>Feedback:</strong> After each drop, you'll receive feedback
-            explaining why the item belongs in a specific bin.
-          </li>
-          <li>
-            <strong>Goal:</strong> Sort all the waste items correctly to
-            complete the game and achieve the highest score!
-          </li>
-        </ul>
+        <div class="game-description">
+          <h2>Why This Game?</h2>
+          <p>
+            Waste segregation is a critical step in managing waste effectively and
+            protecting our environment. By sorting waste into the correct
+            categories, we can recycle materials, reduce landfill waste, and
+            minimize environmental pollution. This game aims to educate and raise
+            awareness about the importance of waste segregation in a fun and
+            interactive way.
+          </p>
+          <h2>How to Play:</h2>
+          <ul>
+            <li>
+              <strong>Drag and Drop:</strong> Drag the waste items and drop them
+              into the correct bins.
+            </li>
+            <li>
+              <strong>Scoring:</strong> You earn 10 points for each correct drop
+              and lose 5 points for each incorrect drop.
+            </li>
+            <li>
+              <strong>Feedback:</strong> After each drop, you'll receive feedback
+              explaining why the item belongs in a specific bin.
+            </li>
+            <li>
+              <strong>Goal:</strong> Sort all the waste items correctly to
+              complete the game and achieve the highest score!
+            </li>
+          </ul>
+        </div>
       </div>
 
       <div class="info-section">
         <div class="bin-guide">
+          <!-- Bin info sections -->
           <div class="bin-info">
             <h3>🔵 Plastic Bin</h3>
             <ul>
@@ -343,6 +305,7 @@
               <li>Packaging material</li>
             </ul>
           </div>
+          <!-- Repeat for other bins -->
           <div class="bin-info">
             <h3>🟢 Compost Bin</h3>
             <ul>
@@ -400,17 +363,7 @@
         </div>
       </div>
 
-      <div
-        style="
-          font-size: 35px;
-          color: rgb(3, 126, 17);
-          font-family: Luckiest Guy, serif;
-          font-weight: lighter;
-          padding-bottom: 20px;
-        "
-      >
-        Let's Play!
-      </div>
+      <div class="lets-play">Let's Play!</div>
       <div class="score">Score: <span id="score">0</span></div>
 
       <div class="bins">
