@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  <title>Waste Segregation Game</title>
+  <style>
+    body {
+      font-family: 'Outfit', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .game-container {
+    text-align: center;
+    background-color: linear-gradient(to bottom right, white, rgb(211, 247, 230));
+    padding: 30px;
+    min-height: 100vh; /* Makes container full height of viewport */
+    width: 100%; /* Full width */
+    margin: 0; /* Remove margins */
+    max-width: none; /* Remove max-width restriction */
+    border-radius: 0; /* Remove border radius for full screen look */
+    box-sizing: border-box; /* Include padding in width/height calculations */
+    overflow-y: auto; /* Add scroll if content is too tall */
+}
+
+    h1 {
+      color: #032445;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .score {
+      font-size: 1.4em;
+      margin-bottom: 20px;
+      padding: 10px;
+      background: #032445;
+      color: white;
+      border-radius: 10px;
+      display: inline-block;
+    }
+
+    .info-section {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 15px;
+      margin: 20px 0;
+      text-align: left;
+    }
+
+    .bin-guide {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .bin-info {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .bin-info h3 {
+      color: #032445;
+      margin-top: 0;
+    }
+
+    .bin-info ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .bin-info li {
+      padding: 5px 0;
+      color: #666;
+    }
+
+    .bins {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 15px;
+      margin: 30px 0;
+    }
+
+    .bin {
+      width: auto;
+      height: 120px;
+      background: linear-gradient(145deg, #ffffff, #e6e6e6);
+      border: 3px solid #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.1em;
+      font-weight: bold;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      padding: 10px;
+    }
+
+    .bin:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #plastic-bin { border-color: #2196F3; color: #2196F3; }
+    #compost-bin { border-color: #4CAF50; color: #4CAF50; }
+    #glass-bin { border-color: #9C27B0; color: #9C27B0; }
+    #paper-bin { border-color: #FF9800; color: #FF9800; }
+    #metal-bin { border-color: #607D8B; color: #607D8B; }
+    #electronic-bin { border-color: #E91E63; color: #E91E63; }
+    #hazardous-bin { border-color: #F44336; color: #F44336; }
+
+    .waste-items {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin: 30px 0;
+    }
+
+    .waste {
+      width: 100px;
+      height: 100px;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 15px;
+      cursor: grab;
+      font-weight: bold;
+      text-align: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+    }
+
+    .waste:hover {
+      transform: scale(1.05);
+    }
+
+    #plastic-bottle { background: #2196F3; }
+    #banana-peel { background: #4CAF50; }
+    #glass-bottle { background: #9C27B0; }
+    #paper { background: #FF9800; }
+    #battery { background: #F44336; }
+    #phone { background: #E91E63; }
+    #tin-can { background: #607D8B; }
+
+    #feedback {
+      font-size: 1.3em;
+      padding: 15px;
+      border-radius: 10px;
+      margin: 20px auto;
+      max-width: 600px;
+      transition: all 0.3s ease;
+    }
+
+    .explanation {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 10px;
+      font-size: 0.9em;
+      text-align: left;
+    }
+
+    #tsparticles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    .game-container {
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <h1>Waste Segregation Game</h1>
+    <div class="score">Score: <span id="score">0</span></div>
+    
+    <div class="info-section">
+      <div class="bin-guide">
+        <div class="bin-info">
+          <h3>🔵 Plastic Bin</h3>
+          <ul>
+            <li>Plastic bottles</li>
+            <li>Food containers</li>
+            <li>Plastic bags</li>
+            <li>Packaging material</li>
+          </ul>
+        </div>
+        <div class="bin-info">
+          <h3>🟢 Compost Bin</h3>
+          <ul>
+            <li>Food scraps</li>
+            <li>Fruit and vegetable waste</li>
+            <li>Coffee grounds</li>
+            <li>Garden waste</li>
+          </ul>
+        </div>
+        <div class="bin-info">
+          <h3>🟣 Glass Bin</h3>
+          <ul>
+            <li>Glass bottles</li>
+            <li>Glass jars</li>
+            <li>Broken glassware</li>
+            <li>Glass containers</li>
+          </ul>
+        </div>
+        <div class="bin-info">
+          <h3>🟡 Paper Bin</h3>
+          <ul>
+            <li>Newspapers</li>
+            <li>Cardboard</li>
+            <li>Magazines</li>
+            <li>Paper packaging</li>
+          </ul>
+        </div>
+        <div class="bin-info">
+          <h3>⚫ Metal Bin</h3>
+          <ul>
+            <li>Tin cans</li>
+            <li>Aluminum cans</li>
+            <li>Metal containers</li>
+            <li>Foil wrapping</li>
+          </ul>
+        </div>
+        <div class="bin-info">
+          <h3>🔴 Electronic Waste</h3>
+          <ul>
+            <li>Old phones</li>
+            <li>Computers</li>
+            <li>Cables</li>
+            <li>Electronic devices</li>
+          </ul>
+        </div>
+        <div class="bin-info">
+          <h3>🟤 Hazardous Waste</h3>
+          <ul>
+            <li>Batteries</li>
+            <li>Paint</li>
+            <li>Chemicals</li>
+            <li>Medical waste</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="bins">
+      <div class="bin" id="plastic-bin">Plastic</div>
+      <div class="bin" id="compost-bin">Compost</div>
+      <div class="bin" id="glass-bin">Glass</div>
+      <div class="bin" id="paper-bin">Paper</div>
+      <div class="bin" id="metal-bin">Metal</div>
+      <div class="bin" id="electronic-bin">Electronic</div>
+      <div class="bin" id="hazardous-bin">Hazardous</div>
+    </div>
+
+    <div class="waste-items">
+      <div class="waste" id="plastic-bottle" draggable="true">Plastic Bottle</div>
+      <div class="waste" id="banana-peel" draggable="true">Banana Peel</div>
+      <div class="waste" id="glass-bottle" draggable="true">Glass Bottle</div>
+      <div class="waste" id="paper" draggable="true">Paper</div>
+      <div class="waste" id="battery" draggable="true">Battery</div>
+      <div class="waste" id="phone" draggable="true">Old Phone</div>
+      <div class="waste" id="tin-can" draggable="true">Tin Can</div>
+    </div>
+
+    <div id="feedback"></div>
+  </div>
+
+  <script>
+    let score = 0;
+    const scoreElement = document.getElementById("score");
+    const feedbackElement = document.getElementById("feedback");
+
+    const wasteToBin = {
+      "plastic-bottle": "plastic-bin",
+      "banana-peel": "compost-bin",
+      "glass-bottle": "glass-bin",
+      "paper": "paper-bin",
+      "battery": "hazardous-bin",
+      "phone": "electronic-bin",
+      "tin-can": "metal-bin"
+    };
+
+    const wasteExplanations = {
+      "plastic-bottle": "Plastic bottles go in the plastic bin for recycling into new plastic products.",
+      "banana-peel": "Banana peels are organic waste that can be composted into nutrient-rich soil.",
+      "glass-bottle": "Glass bottles can be recycled indefinitely without loss in quality.",
+      "paper": "Paper products can be recycled into new paper items, saving trees and energy.",
+      "battery": "Batteries contain harmful chemicals and must be disposed of as hazardous waste.",
+      "phone": "Electronic devices contain valuable materials that can be recovered and recycled.",
+      "tin-can": "Metal items can be recycled multiple times without losing their properties."
+    };
+
+    document.querySelectorAll(".waste").forEach((waste) => {
+      waste.addEventListener("dragstart", (e) => {
+        e.dataTransfer.setData("text/plain", e.target.id);
+        e.target.style.opacity = "0.5";
+      });
+
+      waste.addEventListener("dragend", (e) => {
+        e.target.style.opacity = "1";
+      });
+    });
+
+    document.querySelectorAll(".bin").forEach((bin) => {
+      bin.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        bin.style.transform = "scale(1.05)";
+      });
+
+      bin.addEventListener("dragleave", (e) => {
+        bin.style.transform = "none";
+      });
+
+      bin.addEventListener("drop", (e) => {
+        e.preventDefault();
+        bin.style.transform = "none";
+        
+        const wasteId = e.dataTransfer.getData("text/plain");
+        const waste = document.getElementById(wasteId);
+        const correctBinId = wasteToBin[wasteId];
+
+        let feedbackHtml = '';
+        if (e.target.id === correctBinId) {
+          score += 10;
+          feedbackHtml = `
+            <div style="background: #4CAF50; color: black; font-weight: 600 ;padding: 15px; border-radius: 10px;">
+              Correct! +10 points
+              <div class="explanation">
+                ${wasteExplanations[wasteId]}
+              </div>
+            </div>
+          `;
+        } else {
+          score -= 5;
+          feedbackHtml = `
+            <div style="background: #f44336; color: black;font-weight: 600 ; padding: 15px; border-radius: 10px;">
+              Incorrect! -5 points
+              <div class="explanation">
+                This item belongs in the ${correctBinId.replace('-bin', '')} bin.
+                ${wasteExplanations[wasteId]}
+              </div>
+            </div>
+          `;
+        }
+
+        feedbackElement.innerHTML = feedbackHtml;
+        scoreElement.textContent = score;
+        waste.style.display = "none";
+
+        // Check if game is over
+        const remainingWaste = document.querySelectorAll('.waste[style="display: block"], .waste:not([style])');
+        if (remainingWaste.length === 0) {
+          setTimeout(() => {
+            alert(`Game Over! Final Score: ${score}`);
+            feedbackElement.innerHTML += `
+              <div style="background: #2196F3; color: white; padding: 15px; border-radius: 10px; margin-top: 15px;">
+                Game Complete! Refresh the page to play again.
+              </div>
+            `;
+          }, 500);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
