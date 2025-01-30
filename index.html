@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet" />
     <title>Welcome Page</title>
     <style>
         * {
@@ -16,7 +21,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Arial', sans-serif;
+            font-family: "Luckiest Guy", serif;
             position: relative;
             overflow: hidden;
         }
@@ -27,43 +32,123 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('background img.png');
+            background-image: url("background img.png");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            filter: brightness(0.9);
             z-index: -1;
+            animation: zoomInOut 2s infinite alternate ease-in-out;
+            /* Background zoom animation */
+        }
+
+        @keyframes zoomInOut {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.1);
+            }
+        }
+
+        span {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            animation: fadeIn 2s ease-in-out;
+            /* Fade-in animation */
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 50px;
+            color: rgb(3, 126, 17);
+            text-align: center;
+            z-index: 1;
+            line-height: 1.2;
+            font-weight: lighter;
+            animation: bounce 2s infinite;
+            /* Bounce animation */
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        h1 span {
+            display: block;
+            font-size: 30px;
+            color: rgb(87, 110, 5);
         }
 
         .play-button {
             padding: 20px 60px;
             font-size: 24px;
-            font-weight: bold;
             text-transform: uppercase;
-            background: linear-gradient(45deg, #a4ff6b, #0f7104);
+            font-family: "Luckiest Guy", serif;
+            background: rgb(3, 126, 17);
             border: none;
-            border-radius: 50px;
+            border-radius: 20px;
             color: white;
             cursor: pointer;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            animation: pulse 2s infinite;
+            /* Pulse animation */
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
         .play-button:before {
-            content: '';
+            content: "";
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                120deg,
-                transparent,
-                rgba(255, 255, 255, 0.3),
-                transparent
-            );
+            background: linear-gradient(120deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.3),
+                    transparent);
             transition: 0.5s;
         }
 
@@ -82,15 +167,23 @@
         }
     </style>
 </head>
+
 <body>
     <div class="background"></div>
-    <button class="play-button" onclick="startGame()">Play Now</button>
+    <span>
+        <h1>
+            Waste Segregation Game <br />
+            <zerobin style="color: rgb(3, 126, 17); font-size: 30px">by ZeroBin</zerobin>
+        </h1>
+        <button class="play-button" onclick="startGame()">Play Now</button>
+    </span>
 
     <script>
         function startGame() {
             // Replace 'game.html' with your actual game page URL
-            window.location.href = 'game.html';
+            window.location.href = "game.html";
         }
     </script>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,17 +17,17 @@
     }
 
     .game-container {
-    text-align: center;
-    background-color: linear-gradient(to bottom right, white, rgb(211, 247, 230));
-    padding: 30px;
-    min-height: 100vh; /* Makes container full height of viewport */
-    width: 100%; /* Full width */
-    margin: 0; /* Remove margins */
-    max-width: none; /* Remove max-width restriction */
-    border-radius: 0; /* Remove border radius for full screen look */
-    box-sizing: border-box; /* Include padding in width/height calculations */
-    overflow-y: auto; /* Add scroll if content is too tall */
-}
+      text-align: center;
+      background-color: linear-gradient(to bottom right, white, rgb(211, 247, 230));
+      padding: 30px;
+      min-height: 100vh;
+      width: 100%;
+      margin: 0;
+      max-width: none;
+      border-radius: 0;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
 
     h1 {
       color: #032445;
@@ -83,6 +84,12 @@
       color: #666;
     }
 
+    /* .bins {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 15px;
+      margin: 30px 0;
+    } */
     .bins {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
@@ -91,18 +98,30 @@
     }
 
     .bin {
-      width: auto;
-      height: 120px;
-      background: linear-gradient(145deg, #ffffff, #e6e6e6);
+      background: white;
       border: 3px solid #333;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 1.1em;
-      font-weight: bold;
       border-radius: 15px;
       transition: all 0.3s ease;
       padding: 10px;
+      overflow: hidden;
+      width: fit-content;
+      /* Adjust width to fit the image */
+      height: fit-content;
+      /* Adjust height to fit the image */
+    }
+
+    .bin img {
+      width: 100%;
+      /* Ensure the image fills the bin */
+      height: 100%;
+      /* Ensure the image fills the bin */
+      object-fit: contain;
+      /* Ensure the image scales proportionally */
+      border-radius: 10px;
+      /* Optional: Add border radius to the image */
     }
 
     .bin:hover {
@@ -110,13 +129,33 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
-    #plastic-bin { border-color: #2196F3; color: #2196F3; }
-    #compost-bin { border-color: #4CAF50; color: #4CAF50; }
-    #glass-bin { border-color: #9C27B0; color: #9C27B0; }
-    #paper-bin { border-color: #FF9800; color: #FF9800; }
-    #metal-bin { border-color: #607D8B; color: #607D8B; }
-    #electronic-bin { border-color: #E91E63; color: #E91E63; }
-    #hazardous-bin { border-color: #F44336; color: #F44336; }
+    #plastic-bin {
+      border-color: #2196F3;
+    }
+
+    #compost-bin {
+      border-color: #4CAF50;
+    }
+
+    #glass-bin {
+      border-color: #9C27B0;
+    }
+
+    #paper-bin {
+      border-color: #FF9800;
+    }
+
+    #metal-bin {
+      border-color: #607D8B;
+    }
+
+    #electronic-bin {
+      border-color: #E91E63;
+    }
+
+    #hazardous-bin {
+      border-color: #F44336;
+    }
 
     .waste-items {
       display: flex;
@@ -146,13 +185,33 @@
       transform: scale(1.05);
     }
 
-    #plastic-bottle { background: #2196F3; }
-    #banana-peel { background: #4CAF50; }
-    #glass-bottle { background: #9C27B0; }
-    #paper { background: #FF9800; }
-    #battery { background: #F44336; }
-    #phone { background: #E91E63; }
-    #tin-can { background: #607D8B; }
+    #plastic-bottle {
+      background: #2196F3;
+    }
+
+    #banana-peel {
+      background: #4CAF50;
+    }
+
+    #glass-bottle {
+      background: #9C27B0;
+    }
+
+    #paper {
+      background: #FF9800;
+    }
+
+    #battery {
+      background: #F44336;
+    }
+
+    #phone {
+      background: #E91E63;
+    }
+
+    #tin-can {
+      background: #607D8B;
+    }
 
     #feedback {
       font-size: 1.3em;
@@ -188,11 +247,12 @@
     }
   </style>
 </head>
+
 <body>
   <div class="game-container">
     <h1>Waste Segregation Game</h1>
     <div class="score">Score: <span id="score">0</span></div>
-    
+
     <div class="info-section">
       <div class="bin-guide">
         <div class="bin-info">
@@ -262,13 +322,27 @@
     </div>
 
     <div class="bins">
-      <div class="bin" id="plastic-bin">Plastic</div>
-      <div class="bin" id="compost-bin">Compost</div>
-      <div class="bin" id="glass-bin">Glass</div>
-      <div class="bin" id="paper-bin">Paper</div>
-      <div class="bin" id="metal-bin">Metal</div>
-      <div class="bin" id="electronic-bin">Electronic</div>
-      <div class="bin" id="hazardous-bin">Hazardous</div>
+      <div class="bin" id="plastic-bin">
+        <img src="assets/images/Plastic.png" alt="Plastic Bin" />
+      </div>
+      <div class="bin" id="compost-bin">
+        <img src="assets/images/Compost.png" alt="Compost Bin" />
+      </div>
+      <div class="bin" id="glass-bin">
+        <img src="assets/images/Glass.png" alt="Glass Bin" />
+      </div>
+      <div class="bin" id="paper-bin">
+        <img src="assets/images/Paper.png" alt="Paper Bin" />
+      </div>
+      <div class="bin" id="metal-bin">
+        <img src="assets/images/Metal.png" alt="Metal Bin" />
+      </div>
+      <div class="bin" id="electronic-bin">
+        <img src="assets/images/Electronics.png" alt="Electronic Bin" />
+      </div>
+      <div class="bin" id="hazardous-bin">
+        <img src="assets/images/Hazardous.png" alt="Hazardous Bin" />
+      </div>
     </div>
 
     <div class="waste-items">
@@ -289,14 +363,15 @@
     const scoreElement = document.getElementById("score");
     const feedbackElement = document.getElementById("feedback");
 
+    // Map waste items to correct bin image sources and bin names
     const wasteToBin = {
-      "plastic-bottle": "plastic-bin",
-      "banana-peel": "compost-bin",
-      "glass-bottle": "glass-bin",
-      "paper": "paper-bin",
-      "battery": "hazardous-bin",
-      "phone": "electronic-bin",
-      "tin-can": "metal-bin"
+      "plastic-bottle": { image: "assets/images/Plastic.png", name: "Plastic Bin" },
+      "banana-peel": { image: "assets/images/Compost.png", name: "Compost Bin" },
+      "glass-bottle": { image: "assets/images/Glass.png", name: "Glass Bin" },
+      "paper": { image: "assets/images/Paper.png", name: "Paper Bin" },
+      "battery": { image: "assets/images/Hazardous.png", name: "Hazardous Bin" },
+      "phone": { image: "assets/images/Electronics.png", name: "Electronic Bin" },
+      "tin-can": { image: "assets/images/Metal.png", name: "Metal Bin" }
     };
 
     const wasteExplanations = {
@@ -333,33 +408,36 @@
       bin.addEventListener("drop", (e) => {
         e.preventDefault();
         bin.style.transform = "none";
-        
+
         const wasteId = e.dataTransfer.getData("text/plain");
         const waste = document.getElementById(wasteId);
-        const correctBinId = wasteToBin[wasteId];
+        const correctBin = wasteToBin[wasteId];
+
+        // Find the image inside the dropped bin
+        const binImage = bin.querySelector("img").getAttribute("src");
 
         let feedbackHtml = '';
-        if (e.target.id === correctBinId) {
+        if (binImage === correctBin.image) {
           score += 10;
           feedbackHtml = `
-            <div style="background: #4CAF50; color: black; font-weight: 600 ;padding: 15px; border-radius: 10px;">
-              Correct! +10 points
-              <div class="explanation">
-                ${wasteExplanations[wasteId]}
-              </div>
-            </div>
-          `;
+        <div style="background: #4CAF50; color: black; font-weight: 600; padding: 15px; border-radius: 10px;">
+          Correct! +10 points
+          <div class="explanation">
+            ${wasteExplanations[wasteId]}
+          </div>
+        </div>
+      `;
         } else {
           score -= 5;
           feedbackHtml = `
-            <div style="background: #f44336; color: black;font-weight: 600 ; padding: 15px; border-radius: 10px;">
-              Incorrect! -5 points
-              <div class="explanation">
-                This item belongs in the ${correctBinId.replace('-bin', '')} bin.
-                ${wasteExplanations[wasteId]}
-              </div>
-            </div>
-          `;
+        <div style="background: #f44336; color: black; font-weight: 600; padding: 15px; border-radius: 10px;">
+          Incorrect! -5 points
+          <div class="explanation">
+            This item belongs in the <strong>${correctBin.name}</strong>.
+            ${wasteExplanations[wasteId]}
+          </div>
+        </div>
+      `;
         }
 
         feedbackElement.innerHTML = feedbackHtml;
@@ -372,14 +450,16 @@
           setTimeout(() => {
             alert(`Game Over! Final Score: ${score}`);
             feedbackElement.innerHTML += `
-              <div style="background: #2196F3; color: white; padding: 15px; border-radius: 10px; margin-top: 15px;">
-                Game Complete! Refresh the page to play again.
-              </div>
-            `;
+          <div style="background: #2196F3; color: white; padding: 15px; border-radius: 10px; margin-top: 15px;">
+            Game Complete! Refresh the page to play again.
+          </div>
+        `;
           }, 500);
         }
       });
     });
   </script>
+
 </body>
+
 </html>
